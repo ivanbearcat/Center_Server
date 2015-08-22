@@ -2,11 +2,11 @@
 #coding=utf-8
 server = {}
 server['port'] = 7777
-server['allow'] = ['127.0.0.1', '192.168.100.151', '192.168.100.42']
-server['suggestThreadPoolSize'] = 10
+server['allow'] = ['127.0.0.1', '211.95.46.182']
+server['suggestThreadPoolSize'] = 50
 
 factory = {}
-factory['max_connections'] = 5
+factory['max_connections'] = 50
 factory['timeout'] = 3
 factory['perdefer'] = 5
 

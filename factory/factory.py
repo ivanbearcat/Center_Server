@@ -87,14 +87,19 @@ class server_protocol(Protocol):
             data = eval(data)
 	    print data
             if data.get('salt') == 1:
-                result = self.factory.call_saltstack(data)
-                result = crypt.strong_encrypt(SECRET_KEY,str(result))
-                self.transport.write(result)
+                d = threads.deferToThread(self.factory.call_saltstack,data) 
+#                result = self.factory.call_saltstack(data)
+#                result = crypt.strong_encrypt(SECRET_KEY,str(result))
+#                self.transport.write(result)
+                d.addCallback(self.thread_send_result)  
             else:
                 pass
         except Exception, e:
             print e
 
+    def thread_send_result(self,result):
+        result = crypt.strong_encrypt(SECRET_KEY,str(result))
+        self.transport.write(result)
 
 
     def connectionLost(self, reason):
@@ -104,7 +109,6 @@ class server_protocol(Protocol):
         #     logger.info("Not find pid file")
         print self.transport.client, 'disconnected'
         # logger.info("---Client--connectionLost===>%s" % reason)
-
 
 
     # def InvokeAction(self,data):
@@ -164,4 +168,3 @@ class server_factory(Factory):
             result = client.cmd(hosts,act,argv)
         return result
 	
-
