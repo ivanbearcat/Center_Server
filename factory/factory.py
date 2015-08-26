@@ -83,7 +83,6 @@ class server_protocol(Protocol):
     def dataReceived(self, data):
         try:
             data = crypt.strong_decrypt(SECRET_KEY,str(data))
-            print data
             data = eval(data)
 	    print data
             if data.get('salt') == 1:
