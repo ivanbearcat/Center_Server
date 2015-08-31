@@ -98,8 +98,8 @@ class server_protocol(Protocol):
 
     def thread_send_result(self,result):
         result = crypt.strong_encrypt(SECRET_KEY,str(result))
-        if len(result) > 65535:
-            result = crypt.strong_encrypt(SECRET_KEY,'''{'error':'result data too long!'}''')
+#        if len(result) > 65535:
+#            result = crypt.strong_encrypt(SECRET_KEY,'''{'error':'result data too long!'}''')
         self.transport.write(result)
 #        self.transport.getHandle().sendall(result)
 
