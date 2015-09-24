@@ -163,7 +163,6 @@ class server_factory(Factory):
         act = data.get('act')
         hosts = data.get('hosts')
         argv = data.get('argv')
-        result = client.cmd(hosts,act,argv)
         if len(hosts.split(',')) > 1:
             result = client.cmd(hosts,act,argv,expr_form='list')
         else:
